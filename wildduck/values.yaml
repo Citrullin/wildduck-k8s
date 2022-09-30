@@ -7,6 +7,7 @@ fullnameOverride: ""
 
 mailDomain: mail.wildduck.lan
 webMailDomain: wildduck.lan
+adminEmail: postmaster@example.com
 
 redis:
   host: redis
@@ -35,6 +36,7 @@ serviceAccount:
 wildduck:
   name: "wildduck"
   replicaCount: 1
+  apiPort: 8080
 
   image:
     repository: nodemailer/wildduck
@@ -205,6 +207,7 @@ webmail:
 haraka:
   name: "haraka"
   replicaCount: 1
+  vpopmaildSecret: "sekret"
 
   image:
     repository: nodemailer/haraka-wildduck

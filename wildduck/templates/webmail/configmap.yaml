@@ -27,11 +27,11 @@ data:
         [service.sso.http]
             enabled = false
             header = "X-UserName" # value from this header is treated as logged in username
-            authRedirect = "http:/127.0.0.1:3000/login" # URL to redirect non-authenticated users
-            logoutRedirect = "http:/127.0.0.1:3000/logout"  # URL to redirect when user clicks on "log out"
+            authRedirect = "http:/{{ .Values.webMailDomain }}/login" # URL to redirect non-authenticated users
+            logoutRedirect = "http:/{{ .Values.webMailDomain }}/logout"  # URL to redirect when user clicks on "log out"
 
     [api]
-        url="http://wildduck:8080"
+        url="http://{{ .Values.webMailDomain }}:{{ .Values.apiPort }}"
         accessToken=""
 
     [dbs]

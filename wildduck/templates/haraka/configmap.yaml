@@ -32,15 +32,15 @@ data:
     [users]
     ; matt=test
   auth_vpopmaild.ini: |-
-    host=127.0.0.6
+    host={{ .Values.mailDomain }}
     port=89
-    ;sysadmin=postmaster@example.com:sekret
+    ;sysadmin={{ .Values.adminEmail }}:{{ .Values.vpopmaildSecret }}
 
-    [example.com]
+    [{{ .Values.mailDomain }}]
     host=127.0.0.10
-    ;sysadmin=postmaster@example.com:sekret
+    ;sysadmin={{ .Values.adminEmail }}:{{ .Values.vpopmaildSecret }}
   avg.ini: |-
-    ;host=
+    ;host={{ .Values.mailDomain }}
     ;port=54322
     ;tmpdir=/tmp
     ;connect_timeout=10
@@ -376,7 +376,7 @@ data:
   dkim_sign.ini: |-
     disabled = true
     selector = mail
-    domain = example.com
+    domain = {{ .Values.webMailDomain }}
     headers_to_sign = From, Sender, Reply-To, Subject, Date, Message-ID, To, Cc, MIME-Version
   dnsbl.ini: |-
     ; reject: (default: true)
@@ -420,7 +420,9 @@ data:
 
     [redis]
     host = 127.0.0.1
-    ; port = 6379
+    port = 6379
+    username = {{ .Values.redis.username }}
+    password = {{ .Values.redis.password }}
     db = 11
 
     [skip]
@@ -534,7 +536,7 @@ data:
     ; host=127.0.0.1
 
     ; [example.com]
-    ; host=mail.example.com
+    ; host={{ .Values.mailDomain }}
     ; port=24
   log.ini: |-
     [main]
@@ -1129,7 +1131,7 @@ data:
     ; the scheme) as the initial HTTP connection. WSS is stricter than typical
     ; HTTP so the scheme and hostname *must* match else it silently fails.
     ;
-    ; url=wss://mail.example.com/
+    ; url=wss://{{ .Values.mailDomain }}/
   wildduck.yaml: |-
     ## Connect to a master instance or Redis
     redis:
